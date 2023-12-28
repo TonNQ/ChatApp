@@ -1,0 +1,603 @@
+tags:
+  - name: users
+    description: users API
+  - name: utils
+    description: utils API
+  - name: auth
+    description: authenticate
+  - name: topics
+    description: topics API
+  - name: questions
+    description: questions API
+
+paths:
+  # [Post] login
+  /auth/login:
+    post:
+      tags:
+        - auth
+      sumary: Login
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/users'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        500:
+          description: 'Server Error'
+
+  # [Post] signup
+  /auth/signup:
+    post:
+      tags:
+        - auth
+      sumary: SignUp
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/users'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        500:
+          description: 'Server Error'
+
+  # [Post] refresh_token
+  /auth/refresh_token:
+    post:
+      tags:
+        - auth
+      sumary: generate Access Token
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        500:
+          description: 'Server Error'
+
+  # [Post] logout
+  /auth/logout:
+    post:
+      tags:
+        - auth
+      sumary: logout
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        401:
+          description: 'Wrong authentication token'
+        404:
+          description: 'Authentication token missing'
+        500:
+          description: 'Server Error'
+
+  # [GET] users
+  /users:
+    get:
+      tags:
+        - users
+      summary: Find All Users
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+
+    # [POST] users
+    post:
+      tags:
+        - users
+      summary: Add User
+      parameters:
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/users'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [GET] users/id
+  /users/{id}:
+    get:
+      tags:
+        - users
+      summary: Find User By Id
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+    # [PUT] users/id
+    put:
+      tags:
+        - users
+      summary: Update User By Id
+      parameters:
+        - name: id
+          in: path
+          description: user Id
+          required: true
+        - name: body
+          in: body
+          description: user Data
+          required: true
+          schema:
+            $ref: '#/definitions/users'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+    # [DELETE] users/id
+    delete:
+      tags:
+        - users
+      summary: Delete User By Id
+      parameters:
+        - name: id
+          in: path
+          description: user Id
+          required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [GET] utils/words/word
+  /utils/words/{word}:
+    get:
+      tags:
+        - utils
+      summary: Find Word's Audio
+      parameters:
+        - name: word
+          in: path
+          description: Word
+          required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [POST] utils/file
+  /utils/file:
+    post:
+      tags:
+        - utils
+      summary: Upload File
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: fileUpload
+          in: formData
+          description: The uploaded file data
+          required: true
+          type: file
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [GET] topics
+  /topics:
+    get:
+      tags:
+        - topics
+      summary: Find All Topics
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+
+    # [POST] topics
+    post:
+      tags:
+        - topics
+      summary: Add Topic
+      parameters:
+        - name: body
+          in: body
+          description: topic Data
+          required: true
+          schema:
+            $ref: '#/definitions/topics'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [GET] topics/id
+  /topics/{id}:
+    get:
+      tags:
+        - topics
+      summary: Find Topic By Id
+      parameters:
+        - name: id
+          in: path
+          description: Topic Id
+          required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+    # [PUT] topics/id
+    put:
+      tags:
+        - topics
+      summary: Update Topic By Id
+      parameters:
+        - name: id
+          in: path
+          description: topic Id
+          required: true
+        - name: body
+          in: body
+          description: topic Data
+          required: true
+          schema:
+            $ref: '#/definitions/topics'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+    # [DELETE] topics/id
+    delete:
+      tags:
+        - topics
+      summary: Delete Topic By Id
+      parameters:
+        - name: id
+          in: path
+          description: topic Id
+          required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+  # [GET] lessons
+  /lessons:
+    get:
+      tags:
+        - lessons
+      summary: Find Paginate Lessons
+      parameters:
+        - name: page
+          in: query
+          type: number
+          required: true
+        - name: limit
+          in: query
+          type: number
+          required: true
+        - name: searchKey
+          in: query
+          type: string
+        - name: sort
+          in: query
+          type: array
+          collectionFormat: multi
+          items:
+            type: string
+        - name: filter
+          in: query
+          type: array
+          collectionFormat: multi
+          items:
+            type: string
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+
+    # [POST] lessons
+    post:
+      tags:
+        - lessons
+      summary: Add Lesson
+      parameters:
+        - name: body
+          in: body
+          description: lesson Data
+          required: true
+          schema:
+            $ref: '#/definitions/lessons'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [GET] lessons/id
+  /lessons/{id}:
+    get:
+      tags:
+        - lessons
+      summary: Find Lesson By Id
+      parameters:
+        - name: id
+          in: path
+          description: Lesson Id
+          required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+    # [PUT] lessons/id
+    put:
+      tags:
+        - lessons
+      summary: Update Lesson By Id
+      parameters:
+        - name: id
+          in: path
+          description: lesson Id
+          required: true
+        - name: body
+          in: body
+          description: lesson Data
+          required: true
+          schema:
+            $ref: '#/definitions/lessons'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+    # [DELETE] lessons/id
+    delete:
+      tags:
+        - lessons
+      summary: Delete Lesson By Id
+      parameters:
+        - name: id
+          in: path
+          description: lesson Id
+          required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [GET] questions
+  /questions:
+    get:
+      tags:
+        - questions
+      summary: Find All Questions
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+
+    # [POST] questions
+    post:
+      tags:
+        - questions
+      summary: Add Question
+      parameters:
+        - name: body
+          in: body
+          description: question Data
+          required: true
+          schema:
+            $ref: '#/definitions/questions'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+  # [GET] questions/id
+  /questions/{id}:
+    get:
+      tags:
+        - questions
+      summary: Find Question By Id
+      parameters:
+        - name: id
+          in: path
+          description: Question Id
+          required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+    # [PUT] questions/id
+    put:
+      tags:
+        - questions
+      summary: Update Question By Id
+      parameters:
+        - name: id
+          in: path
+          description: question Id
+          required: true
+        - name: body
+          in: body
+          description: question Data
+          required: true
+          schema:
+            $ref: '#/definitions/questions'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+    # [DELETE] questions/id
+    delete:
+      tags:
+        - questions
+      summary: Delete Question By Id
+      parameters:
+        - name: id
+          in: path
+          description: question Id
+          required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# definitions
+definitions:
+  users:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        description: user Email
+      password:
+        type: string
+        description: user Password
+  topics:
+    type: object
+    required:
+      - name
+      - description
+    properties:
+      name:
+        type: string
+        description: topic Name
+      description:
+        type: string
+        description: topic Description
+  lessons:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        description: lesson Name
+      topicId:
+        type: string
+        description: topic Id
+      audio:
+        type: string
+        description: audio
+  questions:
+    type: object
+    required:
+      - name
+    properties:
+      audio:
+        type: string
+        description: audio
+      answer:
+        type: string
+        description: answer Name
+      lessonId:
+        type: string
+        description: lession Id
+      audioCutFrom:
+        type: number
+        description: audio Cut From
+      audioCutTo:
+        type: number
+        description: audio Cut To
+
+schemes:
+  - https
+  - http
